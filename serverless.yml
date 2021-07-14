@@ -1,0 +1,23 @@
+# serverless.yml
+
+service: sysadap-api-application
+
+plugins:
+  - serverless-offline
+
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: dev
+  profile: sysadap
+  region: us-east-1
+
+functions:
+  predecir:
+      handler: src/handler/TensorflowHandler.predecirTensorflow
+      events:
+        - http:
+            path: /tensorflow/predecir
+            cors: true
+            method: post
