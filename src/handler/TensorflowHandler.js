@@ -1,4 +1,5 @@
 const AI = require("../tensorflow/Tensorflow");
+const tf = require('@tensorflow/tfjs')
 
 let model = null;
 
