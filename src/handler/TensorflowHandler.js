@@ -35,7 +35,7 @@ module.exports = {
         const response = {
         statusCode: 200,
         body: JSON.stringify({
-            message: 'Este es el resultado de las Inteligencias de Gardner!',
+            message: 'Este es el resultado de las Inteligencias de Gardner !',
             input: dataResponse,
         }),
         };
