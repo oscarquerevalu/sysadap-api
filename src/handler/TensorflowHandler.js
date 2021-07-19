@@ -3,8 +3,9 @@ const tf = require('@tensorflow/tfjs')
 
 let model = null;
 
-module.exports = {
-    async predecirTensorflow(event){
+module.exports =  {
+    async predecirTensorflow(event, context, callback){
+        const origin = event.headers.origin;
         console.log(event);     
         const ai = new AI();
         if(this.model == null){
@@ -34,8 +35,12 @@ module.exports = {
         
         const response = {
         statusCode: 200,
+        headers: {
+            'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify({
-            message: 'Este es el resultado de las Inteligencias de Gardner !',
+            
+            message: 'Este es el resultado de las Inteligencias de Gardner x2 !',
             input: dataResponse,
         }),
         };

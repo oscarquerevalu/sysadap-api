@@ -1,7 +1,16 @@
 # serverless.yml
 
 service: sysadap-api-application
-
+custom:
+  allowedHeaders:
+    - Accept
+    - Content-Type
+    - Content-Length
+    - Authorization
+    - X-Amz-Date
+    - X-Api-Key
+    - X-Amz-Security-Token
+    - X-Amz-User-Agent
 plugins:
   - serverless-offline
 
@@ -19,5 +28,7 @@ functions:
       events:
         - http:
             path: /tensorflow/predecir
-            cors: true
             method: post
+            cors:
+              origin: '*'
+              headers: ${self:custom.allowedHeaders}
