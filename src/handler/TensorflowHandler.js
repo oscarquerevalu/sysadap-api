@@ -40,7 +40,7 @@ module.exports =  {
         },
         body: JSON.stringify({
             
-            message: 'Este es el resultado de las Inteligencias de Gardner x2 !',
+            message: 'Este es el resultado de las Inteligencias de Gardner, jjb vas a caer!',
             input: dataResponse,
         }),
         };
