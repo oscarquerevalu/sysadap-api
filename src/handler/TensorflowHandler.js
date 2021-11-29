@@ -4,7 +4,7 @@ const tf = require('@tensorflow/tfjs')
 let model = null;
 
 module.exports =  {
-    async predecirTensorflow(event, context, callback){
+    async predecirTensorflow(event, context, callback){ 
         const origin = event.headers.origin;
         console.log(event);     
         const ai = new AI();

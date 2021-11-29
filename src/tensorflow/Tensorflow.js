@@ -1,8 +1,9 @@
 const tf = require('@tensorflow/tfjs')
+const { get } = require('axios');
 const ESTILOS = ['Estilo 1', 'Estilo 2', 'Estilo 3', 'Estilo 4', 'Estilo 5', 'Estilo 6', 'Estilo 7', 'Estilo 8'];
 const ESTILOS_NRO = ESTILOS.length;
 // SET DE DATOS PARA LOS ESTILOS DE APRENDIZAJE
-const ESTILOS_DATA = [
+var ESTILOS_DATA = [
     [0.9, 0.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0.8, 0.8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
     [0.8, 0.9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -117,6 +118,26 @@ const ESTILOS_DATA = [
 class AI{
      
      async run(){
+        var user = "oscarquerevalu@gmail.com";
+        var pass = "0scar2112";
+        var url = 'http://34.195.249.193:8090/alumno/getDataClaseAlumnos';
+
+        let response = await get(url,{
+            auth: {
+            username: user,
+            password: pass
+        }});
+
+        console.log("response>>>",response.data);
+        console.log("length>>>",response.data.length);
+        var listaDB = [];
+        for (const fila of response.data) {
+            var item = [fila.recurso1,fila.recurso2,fila.recurso3,fila.recurso4,fila.recurso5,fila.recurso6,fila.recurso7,fila.recurso8,fila.recurso9,fila.recurso10,fila.recurso11,fila.recurso12,fila.estilo];
+            listaDB.push(item);
+        }
+        ESTILOS_DATA=listaDB;
+
+        console.log("ESTILOS_DATA>>>",ESTILOS_DATA);
         const [xTrain, yTrain, xTest, yTest] = await this.getEstilosData(.2);
         const modelo = await this.entrenarModelo(xTrain, yTrain, xTest, yTest);
         console.log('Done Training');           
@@ -210,7 +231,7 @@ class AI{
      async entrenarModelo(xTrain, yTrain, xTest, yTest) {
         const model = tf.sequential();
         const ratioAprendizaje = .01;
-        const numEpochs = 200;
+        const numEpochs = 100;
         const optimizer = tf.train.adam(ratioAprendizaje);
         // 16 neuronas en la capa oculta
         await model.add(tf.layers.dense({
